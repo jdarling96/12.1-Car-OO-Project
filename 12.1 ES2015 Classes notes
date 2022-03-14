@@ -1,0 +1,163 @@
+//const add = (x, y) => x + y;
+//const multiply = (x, y) => x * y;
+//const power = (x, y) => x ** y;
+
+//const myMath = {};
+
+/*myMath.add = add
+myMath.multiply = multiply
+myMath.power = power */
+
+//const myMath = {add, multiply, power};
+
+/*const myMath = {
+    add: function(x,y){
+        return x + y;
+    },
+    multiply: function(x,y){
+        return x * y
+    }
+} */
+
+
+
+const myMath = {
+    add(x,y){
+        return x + y;
+    },
+    multiply(x,y){
+        return x * y
+    }
+};
+
+const rightTriangle = {
+    a:      9,
+    b:      12,
+    printThis: function() {
+        console.log(this)
+    },
+    getArea: function(){
+        return this.a * this.b / 2;
+    },
+    getHypotunus: function(){
+        return Math.sqrt(this.a ** 2 + this.b ** 2)
+    }
+};
+
+
+function Triangle(a, b){
+    this.a = a
+    this.b = b
+    this.getArea = function(){
+        return this.a * this.b / 2
+    }
+    this.getHypotunus = function(){
+        return Math.sqrt(this.a ** 2 + this.b ** 2)
+
+    }
+        
+    
+};
+
+const t1 = new Triangle(5, 6);
+const t2 = new Triangle(4, 5);
+
+t1.getHypotunus()
+
+//prototype is an object that can be used in all instances 
+// for instance Array.prototype.push = function(){
+    // you can set push do something else
+// } 
+
+Triangle.prototype.getArea  = function(){
+    return this.a * this.b / 2
+}
+
+Triangle.prototype.getHypotunus = function(){
+    return Math.sqrt(this.a ** 2 + this.b ** 2)
+
+}
+
+class Triangle {
+    constructor(a,b,c){
+        for(let side of [a,b,c]) {
+            if(!Number.isFinite(side) || side <= 0){
+                throw new Error('sides must be a positive number');  // REFACTORED WAY OF WRITING IT USING A LOOP
+            }
+
+        }
+        if(!Number.isFinite(a) || a <= 0){
+            throw new Error('sides must be a positive number');
+        }
+        if(!Number.isFinite(b) || b <= 0){
+            throw new Error('sides must be a positive number');
+        }
+        if(!Number.isFinite(c) || c <= 0){
+            throw new Error('sides must be a positive number');
+        }
+        
+        this.a = a;
+        this.b = b;
+        this.c = c;
+    }
+    greet(){
+        console.log("hello Iam a Greeting")
+    }
+    display(){
+        console.log(`Triangle with the side of ${this.a} and ${this.b} and ${this.c}`)
+    }
+    getArea() {
+        const {a,b,c} = this;
+        const s = (a + b +c) /2;
+        return Math.sqrt(s * (s -a) * (s - b) * (s - c));
+    }
+    isBig(){
+        return this.getArea() > 50; // you have to refernece get area with this
+    }
+};
+
+ class RightTriangle extends Triangle {            // extends to parent class of triangle 
+    
+    constructor(a,b,c){
+        if(a * a + b * b !== c * c) {
+    throw new Error('Invalid C side for right triangle')
+    }
+    super(a, b, c);                                  // pulls all properties and methods from parent(super) class into the our RightTriangle class
+                                               }                                               // must pass the a, b, c arguments into super parameters 
+     isRightTriangle() {
+          return true                                  // can create new methods just for RightTriangle class
+     } 
+     
+     display(){
+        console.log(`Triangle with the side of ${this.a} and ${this.b} and ${this.c}`)  // we can add methods that existed in the super class and they are executed by wich class they are called in
+    }
+    display(){
+        return 'right' + super.display()    // calls traingle class display() but we added 'right' for our RightTraingle class vs what we did above
+    }
+    
+        
+};
+ 
+/*const triOne = new Triangle;
+triOne.a = 5;
+triOne.b = 6
+const triTwo = new Triangle;
+triTwo.a = 7
+triTwo.b = 10
+
+triOne.greet */
+
+const t1 = new Triangle(5,6,7);
+const t2 = new Triangle(7,6,5);
+t1.greet();
+t1.display(); // would return this.a and this.b with the numbers plugged in from our new instance -- t1
+const t3 = new Triangle(-1,2,3); // ERROR WILL BE THROWN DO NOT RETURN NUMBERS IN A CONSTRUCTOR 
+
+t1.getArea();
+
+const t3 = new Triangle(30,40,50)   //return 600`
+t3.getArea();
+t3.isBig()  //return true 
+ 
+
+const t4 = new Triangle()
